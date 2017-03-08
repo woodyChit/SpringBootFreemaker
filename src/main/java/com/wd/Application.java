@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {
-        System.out.println("in main");
+        System.out.println("in main 0308");
         SpringApplication.run(Application.class,args);
     }
 }
