@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
     @RequestMapping("/rest")
-    public String index(){
-        return "rest controller";
+    public String index(String param){
+        return "rest controller: param "+param;
     }
 }
