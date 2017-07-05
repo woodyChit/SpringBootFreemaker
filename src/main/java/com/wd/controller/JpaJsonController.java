@@ -8,14 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 
 /**
  * Created by woody on 2017/3/4.
  */
-@org.springframework.web.bind.annotation.RestController
-public class RestController {
+@RestController
+@RequestMapping("/jpa")
+public class JpaJsonController {
     @Autowired
     private UserServiceImpl userService;
     @Autowired
