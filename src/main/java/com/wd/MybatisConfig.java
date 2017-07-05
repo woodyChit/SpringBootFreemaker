@@ -20,8 +20,9 @@ import java.io.IOException;
 /**
  * Created by wd on 2017/7/5.
  */
-@EnableTransactionManagement
+
 @Configuration
+@EnableTransactionManagement
 public class MybatisConfig implements TransactionManagementConfigurer {
     @Autowired
     DataSource dataSource;
