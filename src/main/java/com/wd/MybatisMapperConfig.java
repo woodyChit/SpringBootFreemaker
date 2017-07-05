@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * Created by wd on 2017/7/5.
  */
 @Configuration
-@AutoConfigureAfter(Application.class)
+@AutoConfigureAfter(MybatisConfig.class)
 public class MybatisMapperConfig {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){

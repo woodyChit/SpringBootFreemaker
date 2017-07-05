@@ -49,7 +49,8 @@ public class JpaConfig {
 
     @Bean(name = "jpaTransactionManager")
     public PlatformTransactionManager transactionManager(EntityManagerFactoryBuilder builder){
-        return new JpaTransactionManager(entityManagerFactoryBean(builder).getObject());
+        PlatformTransactionManager manager = new JpaTransactionManager(entityManagerFactoryBean(builder).getObject());
+        return manager;
     }
 
     @Bean

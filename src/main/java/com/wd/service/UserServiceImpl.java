@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by root on 17-3-11.
  */
 @Service
-@Transactional
+@Transactional(transactionManager = "jpaTransactionManager")
 public class UserServiceImpl {
     @Autowired
     private UserDao userDao;

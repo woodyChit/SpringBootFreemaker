@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by wd on 2017/7/5.
  */
 @Service
-@Transactional
+@Transactional(transactionManager = "jpaTransactionManager")
 public class OrderServiceImpl {
 
     @Autowired
