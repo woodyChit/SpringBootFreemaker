@@ -9,10 +9,6 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by root on 17-3-11.
  */
-
 public interface UserDao extends JpaRepository<User,Long>{
 
- //   User getUser(Long id);
-//    void setUser(User user);
-//    void updateUser(User user);
 }
