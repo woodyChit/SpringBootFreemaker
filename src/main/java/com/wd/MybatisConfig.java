@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Created by wd on 2017/7/5.
@@ -31,6 +32,9 @@ public class MybatisConfig implements TransactionManagementConfigurer {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         sqlSessionFactoryBean.setTypeAliasesPackage("com.wd.entity");
+        Properties properties = new Properties();
+        properties.put("logPrefix","mapper.");
+        sqlSessionFactoryBean.setConfigurationProperties(properties);
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));

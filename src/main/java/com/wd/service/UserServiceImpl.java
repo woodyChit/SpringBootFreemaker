@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(transactionManager = "jpaTransactionManager")
 public class UserServiceImpl {
+
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private OrderServiceImpl orderService;
 
     public void saveUser(User user){
         userDao.save(user);

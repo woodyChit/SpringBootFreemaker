@@ -63,4 +63,11 @@ public class JpaJsonController {
         orderService.saveOrder(o);
         return "success "+o.toString();
     }
+
+    @GetMapping("/test.json")
+    public String test(){
+
+
+        return "ok";
+    }
 }
