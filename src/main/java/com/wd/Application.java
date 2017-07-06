@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
@@ -26,11 +27,14 @@ import java.io.IOException;
  */
 @SpringBootApplication
 @Configuration
+@EnableRedisHttpSession(redisNamespace = "wdmain_httpsession")
 public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class,args);
     }
+
+
 
     @Bean
     public MySetting setting(){

@@ -25,14 +25,7 @@ public class OrderServiceImpl {
     OrderService orderService;
 
     public Order saveOrder(Order order){
-
-        //orderService.save(order);
-        if(order.getId()!=null){
-            //throw new IllegalStateException("test");
-        }
-        Order newOrder = new Order();
-        newOrder.setPrice(order.getPrice().multiply(new BigDecimal(2)));
-        orderDao.save(newOrder);
+        orderDao.save(order);
         return order;
 
     }

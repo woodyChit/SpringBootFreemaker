@@ -20,13 +20,13 @@ public class MybatisJsonController {
     @Autowired
     OrderService orderService;
 
-    @GetMapping("/order.json")
+    @GetMapping("/getorder.json")
     public Order get(int id){
         Order o = orderService.get(id);
         return o;
     }
 
-    @PostMapping("/order.json")
+    @GetMapping("/setorder.json")
     public String save(BigDecimal money){
         Order o = new Order();
         o.setPrice(money);
