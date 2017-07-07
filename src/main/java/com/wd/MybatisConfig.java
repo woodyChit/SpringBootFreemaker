@@ -24,7 +24,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-public class MybatisConfig implements TransactionManagementConfigurer {
+public class MybatisConfig     {
     @Autowired
     DataSource dataSource;
     @Bean
@@ -49,8 +49,6 @@ public class MybatisConfig implements TransactionManagementConfigurer {
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory){
         return new SqlSessionTemplate(sqlSessionFactory);
     }
-    @Override
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return new DataSourceTransactionManager(dataSource);
-    }
+
+
 }

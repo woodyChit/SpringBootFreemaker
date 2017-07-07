@@ -15,7 +15,7 @@ import java.math.BigDecimal;
  * Created by wd on 2017/7/5.
  */
 @Service
-@Transactional(transactionManager = "jpaTransactionManager" )
+@Transactional
 public class OrderServiceImpl {
 
     @Autowired

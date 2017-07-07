@@ -16,7 +16,7 @@ import java.math.BigDecimal;
  * Created by wd on 2017/7/5.
  */
 @Service
-@Transactional(transactionManager = "jpaTransactionManager")
+@Transactional
 public class OrderServiceImplMy implements OrderService{
 
     @Autowired
@@ -28,7 +28,7 @@ public class OrderServiceImplMy implements OrderService{
     OrderServiceImpl jpaOrderService;
 
     @Autowired
-    LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean;
+    PlatformTransactionManager transactionManager;
     @Override
     public Order get(int i){
         return orderDao.get(i);
@@ -47,7 +47,7 @@ public class OrderServiceImplMy implements OrderService{
 
         orderDao.save(order);
         if(order.getId()!=null){
-           // throw new IllegalStateException("2");
+           //throw new IllegalStateException("2");
         }
         return order;
     }
