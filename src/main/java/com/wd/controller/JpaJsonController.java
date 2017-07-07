@@ -55,7 +55,7 @@ public class JpaJsonController {
 
     }
 
-    @PostMapping("/saveOrder.json")
+    @GetMapping("/saveOrder.json")
     public String setOrder(BigDecimal money,BigDecimal rate){
         Order o = new Order();
         BigDecimal m3 = money.divide(rate,2,BigDecimal.ROUND_CEILING);

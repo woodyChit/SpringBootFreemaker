@@ -22,33 +22,16 @@ public class OrderServiceImplMy implements OrderService{
     @Autowired
     OrderMapper orderDao;
 
-    @Autowired
-    UserServiceImpl jpaUserService;
-    @Autowired
-    OrderServiceImpl jpaOrderService;
 
-    @Autowired
-    PlatformTransactionManager transactionManager;
+
+
     @Override
     public Order get(int i){
         return orderDao.get(i);
     }
     @Override
     public Order save(Order order){
-        User u = new User();
-        u.setName("wwwtest_for_rollback");
-        u.setPassword("123456");
-        jpaUserService.saveUser(u);
-
-        Order newOrder = new Order();
-        newOrder.setPrice(new BigDecimal(100.2));
-        jpaOrderService.saveOrder(newOrder);
-
-
         orderDao.save(order);
-        if(order.getId()!=null){
-           //throw new IllegalStateException("2");
-        }
         return order;
     }
 }
