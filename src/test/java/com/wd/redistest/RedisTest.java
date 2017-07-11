@@ -42,10 +42,19 @@ public class RedisTest {
         redisService.addNewScore("woody",100);
         redisService.addNewScore("chitoge",98.2);
         redisService.addNewScore("kky",89.0);
+        redisService.addNewScore("uzi",28);
         Map<String,Double> rank = redisService.getRank(0,-1);
         System.out.println(rank);
         redisService.increScore("kky",9.8);
         rank = redisService.getRank(0,-1);
         System.out.println(rank);
+        Long userrank = redisService.getUserRank("kky");
+        Long nullUserRank = redisService.getUserRank("fwe");
+        Long woodyRank = redisService.getUserRank("woody");
+        Long cRank = redisService.getUserRank("uzi");
+        assertTrue(userrank==2L);
+        assertTrue(nullUserRank==null);
+        assertTrue(woodyRank==3L);
+        assertTrue(cRank==0L);
     }
 }

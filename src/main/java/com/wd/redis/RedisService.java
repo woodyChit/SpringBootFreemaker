@@ -75,8 +75,23 @@ public class RedisService {
         for(ZSetOperations.TypedTuple<Object> it:rank){
             rankMap.put((String)it.getValue(),it.getScore());
         }
+
         return rankMap;
+    }
 
+    /**
+     * 得到用户的排名
+     * @param userName
+     * @return
+     */
+    public Long getUserRank(String userName){
+        ZSetOperations<String,Object> zso = redisTemplate.opsForZSet();
+        return zso.rank(SCORE_RANK,userName);
+    }
 
+    public Boolean removeUser(String userName){
+        ZSetOperations<String,Object> zso = redisTemplate.opsForZSet();
+        Long removedNumber = zso.remove(SCORE_RANK,userName);
+        return (removedNumber!=0);
     }
 }
