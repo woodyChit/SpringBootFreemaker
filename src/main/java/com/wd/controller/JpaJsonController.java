@@ -5,6 +5,7 @@ import com.wd.entity.User;
 import com.wd.service.OrderServiceImpl;
 import com.wd.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
  */
 @RestController
 @RequestMapping("/jpa")
+
 public class JpaJsonController {
     @Autowired
     private UserServiceImpl userService;
@@ -32,16 +34,13 @@ public class JpaJsonController {
         User user=new User();
         user.setName(name);
         user.setPassword(password);
-
         userService.saveUser(user);
         return "Success  "+ user.toString();
-
     }
     @RequestMapping("/get.json")
     public String getUser(Long id){
         User user=userService.getUser(id);
         return user.toString();
-
     }
 
     @GetMapping("/getOrder.json")

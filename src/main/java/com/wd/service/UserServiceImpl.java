@@ -3,6 +3,8 @@ package com.wd.service;
 import com.wd.dao.UserDao;
 import com.wd.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@CacheConfig(cacheNames = "jpaCache")
 public class UserServiceImpl {
 
     @Autowired
@@ -22,7 +25,7 @@ public class UserServiceImpl {
         userDao.save(user);
 
     }
-
+    @Cacheable
     public User getUser(Long id){
         return userDao.findOne(id);
     }
