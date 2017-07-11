@@ -65,8 +65,6 @@ public class JpaJsonController {
 
     @GetMapping("/test.json")
     public String test(){
-
-
         return "ok";
     }
 }

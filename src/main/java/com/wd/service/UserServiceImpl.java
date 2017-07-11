@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Created by root on 17-3-11.
  */
+
 @Service
 @Transactional
 @CacheConfig(cacheNames = "jpaCache")
@@ -23,7 +24,6 @@ public class UserServiceImpl {
 
     public void saveUser(User user){
         userDao.save(user);
-
     }
     @Cacheable
     public User getUser(Long id){
