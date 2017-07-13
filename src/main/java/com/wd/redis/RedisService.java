@@ -108,6 +108,7 @@ public class RedisService {
         if(value==null){
             return null;
         }else{
+            //same  return type.cast(value);
             return (T) value;
         }
     }

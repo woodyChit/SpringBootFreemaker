@@ -28,7 +28,7 @@ public class CommonFilter extends OncePerRequestFilter{
     RedisService redisService;
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        httpServletRequest.setAttribute("host","host...");
+        httpServletRequest.setAttribute("host",host);
         redisService.leftPush(Constants.REDIS_KEY_PAGEVIEW,getFullPath(httpServletRequest));
         filterChain.doFilter(httpServletRequest,httpServletResponse);
     }
