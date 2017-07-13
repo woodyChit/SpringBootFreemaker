@@ -1,15 +1,13 @@
 package com.wd.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -93,5 +91,24 @@ public class RedisService {
         ZSetOperations<String,Object> zso = redisTemplate.opsForZSet();
         Long removedNumber = zso.remove(SCORE_RANK,userName);
         return (removedNumber!=0);
+    }
+
+
+    public Long leftPush(String listName,Object value){
+        ListOperations<String,Object> lop = redisTemplate.opsForList();
+        return lop.leftPush(listName,value);
+    }
+    public <E> Long leftPush(String listName, Collection<E> collection){
+        ListOperations<String,Object> lop = redisTemplate.opsForList();
+        return lop.leftPushAll(listName,collection);
+    }
+    public <T> T rightPop(String listName, Class<T> type){
+        ListOperations<String,Object> lop = redisTemplate.opsForList();
+        Object value = lop.rightPop(listName);
+        if(value==null){
+            return null;
+        }else{
+            return (T) value;
+        }
     }
 }
