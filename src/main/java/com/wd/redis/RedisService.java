@@ -22,7 +22,7 @@ public class RedisService {
     private final String SCORE_RANK = "RedisScoreRankZSet";
 
     @Autowired
-    RedisTemplate<String, Object > redisTemplate;
+    RedisTemplate<String, Object> redisTemplate;
 
 
     public void setValue(String key,Object o){
