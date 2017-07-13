@@ -1,6 +1,8 @@
 package com.wd;
 
 
+import org.apache.ibatis.logging.slf4j.Slf4jImpl;
+import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,11 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
-
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
@@ -32,9 +30,10 @@ public class MybatisConfig     {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         sqlSessionFactoryBean.setTypeAliasesPackage("com.wd.entity");
-        Properties properties = new Properties();
-        properties.put("logPrefix","mapper.");
-        sqlSessionFactoryBean.setConfigurationProperties(properties);
+        //开启 mybatis sql 语句打印
+        org.apache.ibatis.session.Configuration conf = new org.apache.ibatis.session.Configuration();
+        conf.setLogImpl(StdOutImpl.class);
+        sqlSessionFactoryBean.setConfiguration(conf);
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
