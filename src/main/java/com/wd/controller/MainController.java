@@ -23,7 +23,7 @@ public class MainController {
 
     @Autowired
     RedisService redisService;
-    @RequestMapping("/index.html")
+    @RequestMapping(path = { "/index.html", "/" , "" })
     public ModelAndView index(ModelAndView modelAndView){
         modelAndView.addObject("name",holder.toString()  );
         modelAndView.setViewName("index");
