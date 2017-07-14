@@ -43,13 +43,13 @@
                 <#else>
                     <td>${key}</td>
                 </#if>
-
                 <td>${rank["${key}"]}</td>
             </tr>
         </#list>
     </#if>
-
+    <td>${total!}</td>
 </table>
+
 <input type="text" id="name" />
 <input type="button" onclick="randomScore()" id="btn" name="btn" value="新得分"/>
 <br>

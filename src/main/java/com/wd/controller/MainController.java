@@ -42,6 +42,7 @@ public class MainController {
     public ModelAndView score(ModelAndView modelAndView,String name, Double score,Long myrank){
         Map<String,Double> rank = redisService.getRank(0,9);
         modelAndView.addObject("rank",rank);
+        modelAndView.addObject("total",redisService.getLastRank());
         if(StringUtils.isEmpty(name)){
             modelAndView.addObject("isNew",true);
         }else{

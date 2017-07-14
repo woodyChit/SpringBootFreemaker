@@ -120,6 +120,14 @@ public class RedisService {
         return zso.rank(SCORE_RANK,userName);
     }
 
+    /**
+     * 得到总数
+     * @return
+     */
+    public Long getLastRank(){
+        ZSetOperations<String,Object> zso = redisTemplate.opsForZSet();
+        return zso.size(SCORE_RANK);
+    }
     public Boolean removeUser(String userName){
         ZSetOperations<String,Object> zso = redisTemplate.opsForZSet();
         Long removedNumber = zso.remove(SCORE_RANK,userName);
