@@ -29,6 +29,15 @@ public class MainController {
         modelAndView.setViewName("index");
         return modelAndView;
     }
+
+    /**
+     * 排行榜小demo
+     * @param modelAndView
+     * @param name
+     * @param score
+     * @param myrank
+     * @return
+     */
     @GetMapping("/score.html")
     public ModelAndView score(ModelAndView modelAndView,String name, Double score,Long myrank){
         Map<String,Double> rank = redisService.getRank(0,9);
