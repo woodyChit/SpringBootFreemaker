@@ -5,4 +5,5 @@ package com.wd;
  */
 public class Constants {
     public static final String REDIS_KEY_PAGEVIEW="RedisPageViews";
+    public static final String REDIS_CHANNEL="RedisPubChannel";
 }

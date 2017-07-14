@@ -2,6 +2,7 @@ package com.wd.controller;
 
 import com.wd.entity.Order;
 import com.wd.entity.User;
+import com.wd.redis.RedisPubService;
 import com.wd.redis.RedisService;
 import com.wd.redis.RedisServiceTwo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class RedisJsonController {
     @Autowired
     RedisService redisService;
 
+    @Autowired
+    RedisPubService redisPubService;
     @Autowired
     RedisServiceTwo redisServiceTwo;
 
@@ -42,5 +45,11 @@ public class RedisJsonController {
     public RedisService.RankTurple setNewScore(String name){
         RedisService.RankTurple info = redisService.genRandomScore(name);
         return info;
+    }
+
+    @PostMapping("pub.json")
+    public String pub(String cname,String msg){
+        redisPubService.createPub(cname,msg);
+        return "OK";
     }
 }
