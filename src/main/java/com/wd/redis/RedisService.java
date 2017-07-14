@@ -18,7 +18,8 @@ public class RedisService {
     //only valueOps
     //
     private final String SCORE_RANK = "RedisScoreRankZSet";
-
+    private final int MAX_RANK=500;
+    private final Random rd = new Random();
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
 
@@ -39,15 +40,48 @@ public class RedisService {
         return clazz.cast(value);
     }
 
+
+    public RankTurple genRandomScore(String username){
+        double r = rd.nextDouble();
+        int i = rd.nextInt(100);
+        r = Math.round(r*10000)/10.0;
+        String u = username+i;
+        Long rank = addNewScore(u,r);
+        return new RankTurple(u,r,rank);
+    }
+
+    public class  RankTurple{
+        private String s;
+        private Double v;
+        private Long rank;
+        public RankTurple(String name,Double value,Long r){
+            s=name;
+            v=value;
+            rank = r;
+        }
+
+        public String getS() {
+            return s;
+        }
+
+        public Double getV() {
+            return v;
+        }
+
+        public Long getRank() {
+            return rank;
+        }
+    }
     /**
      * 设置初始分
      * @param username
      * @param value
      * @return
      */
-    public Boolean addNewScore(String username,double value){
+    public Long addNewScore(String username,double value){
         ZSetOperations<String,Object> zso = redisTemplate.opsForZSet();
-        return zso.add(SCORE_RANK,username,value);
+        zso.add(SCORE_RANK,username,value);
+        return zso.reverseRank(SCORE_RANK,username)+1;
     }
     /**
      * 加分
@@ -68,12 +102,11 @@ public class RedisService {
      */
     public Map<String,Double> getRank(long start,long end){
         ZSetOperations<String,Object> zso = redisTemplate.opsForZSet();
-        Set<ZSetOperations.TypedTuple<Object>> rank = zso.rangeWithScores(SCORE_RANK,start,end);
+        Set<ZSetOperations.TypedTuple<Object>> rank = zso.reverseRangeWithScores(SCORE_RANK,start,end);
         Map<String,Double> rankMap = new LinkedHashMap<>();
         for(ZSetOperations.TypedTuple<Object> it:rank){
             rankMap.put((String)it.getValue(),it.getScore());
         }
-
         return rankMap;
     }
 
