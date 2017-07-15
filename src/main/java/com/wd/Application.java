@@ -24,6 +24,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
@@ -42,6 +43,7 @@ import java.io.IOException;
 @Configuration
 @EnableRedisHttpSession(redisNamespace = "wdmain_httpsession")
 @ComponentScan(basePackages = "com.wd")
+@EnableRedisRepositories
 public class Application {
 
     public static void main(String[] args) {

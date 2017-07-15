@@ -1,10 +1,8 @@
 package com.wd.redis;
 
+import com.wd.entity.RedisUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,6 +20,8 @@ public class RedisService {
     private final Random rd = new Random();
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    RedisUserRepository redisUserRepository;
 
 
     public void setValue(String key,Object o){
@@ -152,5 +152,24 @@ public class RedisService {
             //same  return type.cast(value);
             return (T) value;
         }
+
     }
+
+    public RedisUser setRedisUser(RedisUser user){
+        return redisUserRepository.save(user);
+    }
+
+    public void delRedisUser(RedisUser user){
+        redisUserRepository.delete(user);
+    }
+
+    public void delRedisUser(Integer id){
+        redisUserRepository.delete(id);
+        //redisUserRepository.delete(new RedisUser(12,"2","fwe"));
+        // 按类型删除，实际上依据id。
+    }
+    public RedisUser getRedisUser(Integer id){
+        return redisUserRepository.findOne(id);
+    }
+
 }
