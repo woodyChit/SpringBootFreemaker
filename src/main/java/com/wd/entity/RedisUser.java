@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisHash;
 /**
  * Created by woody on 2017/7/15.
  * 结合RedisUserRepository  演示了@RedisHash 和 @Id 的使用。
+ * 其他提供了 Map映射，TTL 过期设置@TimeToLive
  */
 @RedisHash("redisUser")
 public class RedisUser {
