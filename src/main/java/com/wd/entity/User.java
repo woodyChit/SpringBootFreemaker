@@ -1,5 +1,7 @@
 package com.wd.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -8,7 +10,7 @@ import javax.persistence.*;
 @Table(name="t_user")
 @Entity
 public class User {
-
+    @JsonIgnore
     private Long id;
 
     private String name;
@@ -47,5 +49,14 @@ public class User {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public User() {
+    }
+
+    public User(Long id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
     }
 }

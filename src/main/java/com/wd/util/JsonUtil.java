@@ -1,10 +1,11 @@
 package com.wd.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wd.entity.User;
-
+import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
-import java.io.StringWriter;
+
 
 /**
  * Created by wd on 2017/7/14.
@@ -13,52 +14,27 @@ public class JsonUtil {
 
     public static String convertToJson(Object o){
         ObjectMapper om = new ObjectMapper();
-        StringWriter stringWriter = new StringWriter();
+        String re;
         try {
-            om.writeValue(stringWriter,o);
-            String a = stringWriter.toString();
-            if(a!=null){
-                return a;
-            }
-        } catch (IOException e) {
+            //om.configure(SerializationFeature.INDENT_OUTPUT, true);     // 为了使JSON视觉上的可读性，在生产中不需如此，会增大Json的内容
+            om.setSerializationInclusion( JsonInclude.Include.NON_EMPTY);
+            re=om.writeValueAsString(o);
+            return re;
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
-        }finally {
-            try {
-                stringWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return "";
     }
 
-//    public static void main(String[] args) {
-//        User u = new User();
-//        u.setId(100L);
-//        u.setPassword("welfjw");
-//        u.setName("chigeo");
-//        System.out.println(convertToJson(u));
-//        Turple<String,User> t = new Turple<>("usr",u);
-//        User a = t.getV();
-//        System.out.println(a);
-//        System.out.println(u);
-//        // ExcetionSystem.out.println(convertToJson(t));
-//    }
-
-    public static class Turple<K,V>{
-        K k;
-        V v;
-        public Turple(K k,V v){
-            this.k = k ;
-            this.v = v ;
+    public static <T> T convertToObject(String json ,Class<T> clazz){
+        ObjectMapper om = new ObjectMapper();
+        try {
+            return om.readValue(json,clazz);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        public K getK() {
-            return k;
-        }
-
-        public V getV() {
-            return v;
-        }
+        return null;
     }
+
 }
