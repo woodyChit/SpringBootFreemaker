@@ -2,6 +2,8 @@ package com.wd.controller;
 
 import com.wd.entity.Order;
 import com.wd.mybatisservice.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,8 @@ public class MybatisJsonController {
 
     @Autowired
     OrderService orderService;
+
+    private static final Logger logger = LoggerFactory.getLogger(MybatisJsonController.class);
 
     @GetMapping("/getorder.json")
     public Order get(int id){
