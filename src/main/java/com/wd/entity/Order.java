@@ -32,9 +32,9 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return super.toString()+"  Order{" +
                 "id=" + id +
                 ", price=" + price +
-                '}';
+                '}' ;
     }
 }

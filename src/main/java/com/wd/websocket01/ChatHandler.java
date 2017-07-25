@@ -53,7 +53,7 @@ public class ChatHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         super.handleTextMessage(session, message);
         logger.info("收到信息 {}",message.getPayload());
-        session.sendMessage(new TextMessage("你说"+message.getPayload()));
+        session.sendMessage(new TextMessage("echo:"+message.getPayload()));
     }
 
     /**

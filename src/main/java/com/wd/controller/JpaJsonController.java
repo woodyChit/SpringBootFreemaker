@@ -65,6 +65,12 @@ public class JpaJsonController {
 
     @GetMapping("/test.json")
     public String test(){
+        orderService.testTransaction();
+        return "ok";
+    }
+    @GetMapping("/test2.json")
+    public String test2(Long id){
+        orderService.testOtherThreadTransaction(id);
         return "ok";
     }
 }
