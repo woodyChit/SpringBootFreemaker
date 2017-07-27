@@ -42,9 +42,12 @@ public class OrderServiceImpl {
         Order o = getOrder(70L);
         o.setPrice(new BigDecimal(88));
         o.setPrice(o.getPrice().add(new BigDecimal(1)));
-        System.out.println("thread 1 incre order = "+ o );
         orderDao.save(o);
-        System.out.println("after save order = "+ o );
+        System.out.println("after JPAsave order = "+ o );
+        orderDao.flush();
+
+        System.out.println("After JPA flush...");
+        testMybatisTransactionSec();
         try {
             TimeUnit.SECONDS.sleep(15);
         } catch (InterruptedException e) {
@@ -52,27 +55,15 @@ public class OrderServiceImpl {
         }
         System.out.println("after Sleep .");
         o.setPrice(o.getPrice().add(new BigDecimal(1)));
-        System.out.println("after  save order = "+ o );
+        System.out.println("after JPAsave2 save order = "+ o );
     }
 
     public void testTransactionSec(){
 
-        Order o2 = getOrder(63L);
-      //  orderDao.delete(63L);
-        o2.setPrice(o2.getPrice().add(new BigDecimal(1)));
-        System.out.println("  delete otherget = "+o2);
-        //orderDao.save(o2);
-
-
-
     }
     public void testMybatisTransactionSec(){
-
-        Order o2 = orderService.get(63);
-        o2.setPrice(o2.getPrice().add(new BigDecimal(1)));
-        System.out.println("  otherget = "+o2);
-        orderService.save(o2);
-
+        Order o2 = orderService.get(70);
+        System.out.println("  Mybatis Get = "+o2);
     }
     public void testOtherThreadTransaction(Long id){
         Order o = getOrder(id);

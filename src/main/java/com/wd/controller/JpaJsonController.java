@@ -70,7 +70,7 @@ public class JpaJsonController {
     }
     @GetMapping("/test2.json")
     public String test2(Long id){
-        orderService.testOtherThreadTransaction(id);
+        orderService.testMybatisTransactionSec();
         return "ok";
     }
 }
