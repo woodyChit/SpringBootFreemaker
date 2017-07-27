@@ -8,4 +8,5 @@ import com.wd.entity.Order;
 public interface OrderMapper {
     Order get(int id);
     void save(Order newOrder);
+    void update(Order order);
 }

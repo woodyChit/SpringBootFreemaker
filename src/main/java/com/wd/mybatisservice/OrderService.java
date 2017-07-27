@@ -8,4 +8,5 @@ import com.wd.entity.Order;
 public interface OrderService {
     Order get(int i);
     Order save(Order order);
+    Order update(Order order);
 }

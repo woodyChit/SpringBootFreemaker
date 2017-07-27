@@ -31,4 +31,10 @@ public class OrderServiceImplMy implements OrderService{
         orderDao.save(order);
         return order;
     }
+
+    @Override
+    public Order update(Order order) {
+        orderDao.update(order);
+        return order;
+    }
 }

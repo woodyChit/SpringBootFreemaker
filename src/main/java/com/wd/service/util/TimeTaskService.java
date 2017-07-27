@@ -21,7 +21,7 @@ public class TimeTaskService {
     private RedisService redisService;
 
     private final static Logger logger = LoggerFactory.getLogger(TimeTaskService.class);
-    @Scheduled(cron = "0 0/1 * * * ? ")
+    @Scheduled(cron = "0 0/1 * * * ? ")     //s m h day month week???/
     public void pageView(){
         String pagePath = redisService.rightPop(Constants.REDIS_KEY_PAGEVIEW,String.class);
         if(pagePath!=null){

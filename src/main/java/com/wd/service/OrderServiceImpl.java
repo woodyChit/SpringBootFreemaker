@@ -48,14 +48,17 @@ public class OrderServiceImpl {
 
         System.out.println("After JPA flush...");
         testMybatisTransactionSec();
+        o.setPrice(o.getPrice().add(new BigDecimal(1)));
+        orderService.update(o);
+        System.out.println("After mybatis save...");
         try {
             TimeUnit.SECONDS.sleep(15);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.println("after Sleep .");
-        o.setPrice(o.getPrice().add(new BigDecimal(1)));
-        System.out.println("after JPAsave2 save order = "+ o );
+        Order other = getOrder(70L);
+        System.out.println("JPA get  order = "+ other );
     }
 
     public void testTransactionSec(){

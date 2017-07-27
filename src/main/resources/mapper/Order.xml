@@ -11,5 +11,7 @@
     <insert id="save" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
         insert into t_order (order_price) values (#{price})
     </insert>
-
+    <update id="update" parameterType="Order" >
+        update t_order set order_price = #{price} where id = #{id}
+    </update>
 </mapper>
