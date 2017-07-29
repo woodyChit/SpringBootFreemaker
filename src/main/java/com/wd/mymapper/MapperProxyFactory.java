@@ -12,6 +12,10 @@ import java.util.Map;
  * Created by woody on 2017/7/29.
  * 生成mapper 的动态代理工厂
  * 文件演示了可能的动态生成mapper的方法，在不考虑事务的情况下。
+ * 实际情况是这样的：
+ * 代理对象构建时，传入了接口class 和 sqlSession，
+ * 然后同样的分发任务。
+ * http://blog.csdn.net/oh_mourinho/article/details/51858962
  */
 public class MapperProxyFactory implements InvocationHandler {
 
