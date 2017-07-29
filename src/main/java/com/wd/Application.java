@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wd.init.MySetting;
+import com.wd.mymapper.MapperProxyFactory;
 import com.wd.redis.MyRedisMessageListener;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -36,6 +37,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.lang.reflect.InvocationHandler;
 
 
 /**
@@ -79,6 +81,11 @@ public class Application {
         DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
         cookieSerializer.setCookieName(Constants.COOKIE_SESSION_ID);
         return cookieSerializer;
+    }
+
+    @Bean
+    public MapperProxyFactory mapperProxyFactory(SqlSessionFactory sqlSessionFactory){
+        return new MapperProxyFactory(sqlSessionFactory);
     }
 
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wd.mymapper.MyOrderMapper">
+
+    <select id="get" parameterType="Integer" resultType="Order">
+        select id,order_price as price from t_order where id=#{id}
+    </select>
+
+    <insert id="save" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
+        insert into t_order (order_price) values (#{price})
+    </insert>
+
+</mapper>
