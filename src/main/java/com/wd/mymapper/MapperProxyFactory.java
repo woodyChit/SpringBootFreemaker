@@ -10,7 +10,8 @@ import java.util.Map;
 
 /**
  * Created by woody on 2017/7/29.
- * 文件演示了可能的动态生成mapper的方法
+ * 生成mapper 的动态代理工厂
+ * 文件演示了可能的动态生成mapper的方法，在不考虑事务的情况下。
  */
 public class MapperProxyFactory implements InvocationHandler {
 
