@@ -23,6 +23,7 @@ public class FileUploadServiceApacheImp implements FileUploadService{
     private final static long FILE_MAX_SIZE=512*1024*1024;
     @Override
     public String fileupload(HttpServletRequest request, HttpServletResponse response)   {
+
         final String ROOTPATH = request.getSession().getServletContext().getRealPath("/");
         final String UPLOAD_FOLDER = ROOTPATH+"uploadfolder";
         File uploadFolder = new File(UPLOAD_FOLDER);
@@ -34,7 +35,7 @@ public class FileUploadServiceApacheImp implements FileUploadService{
         ServletFileUpload fileUpload = new ServletFileUpload(factory);
         fileUpload.setSizeMax(FILE_MAX_SIZE);
 
-        ProgressListener listener = new MyFileUploadProgressLisenter(request.getSession());
+        MyFileUploadProgressLisenter listener = new MyFileUploadProgressLisenter("no1");
         fileUpload.setProgressListener(listener);
         List<FileItem> fileList;
         try {
@@ -57,7 +58,6 @@ public class FileUploadServiceApacheImp implements FileUploadService{
             return "ERROR";
         }
         String token = UUID.randomUUID().toString();
-        request.getSession().setAttribute(Constants.SESSION_KEY_FILEUPLOAD, token);
         return token;
     }
 }

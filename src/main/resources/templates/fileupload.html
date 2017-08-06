@@ -31,17 +31,42 @@
                 error:function(result){
                 }
             });
+            setTimeout("getProgress()",1000);   //延迟启动，防止在listener没有加载前访问而退出。
         }
+        function getProgress(){
+            var url = "/file/progress.json";
+            $.ajax({
+                url:url,
+                type:"GET",
+                dataType:"json",
+                success:function(result){
+                    if(result.flag){
+                        var pro = result.data.progress;
+                        $("#progress").html(pro);
+                        if(pro!=null && pro<=99.9){
+                            setTimeout("getProgress()",1000);
+                        }else{
+                            $("#progress").html(100);
+                        }
+                    }
+                },
+            });
+        }
+
     </script>
 </head>
 <body>
 
 <h1>文件上传：使用apacheFileupload</h1>
 <div>
+    <div>
+        点击上传文件：<input type="file" id="uploadfile" name="uploadfile"  />
+        <span style="margin-left: 100px" id="progress">NO</span>
+    </div>
+    <div>
+        <input type="button" value="开始上传" onclick="onUpload()">
+    </div>
 
-    点击上传文件：<input type="file" id="uploadfile" name="uploadfile"  />
-    <label id="progress"></label>
-    <input type="button" value="开始上传" onclick="onUpload()">
 </div>
 </body>
 </html>

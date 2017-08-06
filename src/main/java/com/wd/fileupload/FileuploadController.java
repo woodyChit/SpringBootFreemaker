@@ -1,13 +1,14 @@
 package com.wd.fileupload;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wd.Constants;
+import com.wd.model.JsonModel;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * Created by woody on 2017/8/5.
@@ -28,4 +29,13 @@ public class FileuploadController {
 //        response.setContentType("text/html;charset=utf-8");
 //        fileUploadService.fileupload(request,response);
 //    }
+    @ResponseBody
+    @GetMapping("/progress.json")
+    public JsonModel progresss(HttpServletRequest request){
+        JsonModel model = new JsonModel();
+        Double strProgress = MyFileUploadProgressLisenter.getProgress("no1");
+        model.flag(true);
+        model.put("progress",strProgress);
+        return model;
+    }
 }
