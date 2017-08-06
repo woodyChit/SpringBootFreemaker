@@ -2,12 +2,13 @@ package com.wd.fileupload;
 
 import com.wd.Constants;
 import com.wd.model.JsonModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -17,9 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/file")
 public class FileuploadController {
 
+    @Autowired
+    OSSFileUploadService fileUploadService;
     @RequestMapping(value = "/upladPage.html",method = RequestMethod.GET)
     public String uploadpage(){
         return "fileupload";
+    }
+    @RequestMapping(value = "/ossUpladPage.html",method = RequestMethod.GET)
+    public String uploadpageOSS(){
+        return "ossfileupload";
     }
 
     //@RequestMapping(value = "/upload",method = RequestMethod.POST)
@@ -29,6 +36,13 @@ public class FileuploadController {
 //        response.setContentType("text/html;charset=utf-8");
 //        fileUploadService.fileupload(request,response);
 //    }
+
+    @PostMapping("/ossupload")
+    public void uploadFile(MultipartFile file, HttpServletResponse response){
+        fileUploadService.uploadFile(file);
+        response.setStatus(200);
+    }
+
     @ResponseBody
     @GetMapping("/progress.json")
     public JsonModel progresss(HttpServletRequest request){
