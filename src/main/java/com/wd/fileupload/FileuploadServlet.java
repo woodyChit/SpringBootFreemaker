@@ -1,5 +1,6 @@
 package com.wd.fileupload;
 
+import com.wd.model.JsonModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletConfig;
@@ -32,5 +33,7 @@ public class FileuploadServlet extends HttpServlet{
         response.setContentType("text/html;charset=utf-8");
         fileUploadService.fileupload(request,response);
         response.setStatus(200);
+
+
     }
 }

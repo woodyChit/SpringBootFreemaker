@@ -45,6 +45,10 @@ public class FileUploadServiceApacheImp implements FileUploadService{
         }
         FileItem fileItem = fileList.get(0);
         String oldFileName = fileItem.getName();
+        int indexOf = oldFileName.lastIndexOf(File.separator);
+        if(indexOf!=-1){        //IE 和 chrome 的 fileName 不一样，ie 会将路径也传过来， chrome 只会传正确的文件名。
+            oldFileName = oldFileName.substring(indexOf+1);
+        }
         File newFile = new File(UPLOAD_FOLDER,oldFileName);
         try {
             fileItem.write(newFile);

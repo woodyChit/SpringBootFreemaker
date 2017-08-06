@@ -25,10 +25,10 @@
                 processData:false,
                 contentType:false,
                 success:function(result){
-                    alert("OK");
+                    if(result.flag==true)
+                        alert(result.msg);
                 },
                 error:function(result){
-                    alert("ERROR");
                 }
             });
         }

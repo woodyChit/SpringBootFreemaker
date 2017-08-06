@@ -2,6 +2,7 @@ package com.wd.controller;
 
 import com.wd.entity.Order;
 import com.wd.entity.User;
+import com.wd.model.JsonModel;
 import com.wd.service.OrderServiceImpl;
 import com.wd.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,15 @@ public class JpaJsonController {
         return "rest controller: param "+param;
     }
     @RequestMapping("/save.json")
-    public String setUser(String name,String password){
+    public JsonModel setUser(String name,String password){
         User user=new User();
         user.setName(name);
         user.setPassword(password);
         userService.saveUser(user);
-        return "Success  "+ user.toString();
+        JsonModel model = new JsonModel();
+        model.flag(true);
+        model.put("user",user);
+        return model;
     }
     @RequestMapping("/get.json")
     public String getUser(Long id){
