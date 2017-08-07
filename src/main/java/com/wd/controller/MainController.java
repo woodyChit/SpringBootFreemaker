@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.Map;
@@ -71,4 +72,13 @@ public class MainController {
         return modelAndView;
     }
 
+    @GetMapping("/login.html")
+    public String login(){
+        return "login";
+    }
+    @PostMapping("/login.html")
+    public String loginPost(String username,String password){
+        System.out.println("username "+username +"pass "+password);
+        return "login";
+    }
 }

@@ -2,16 +2,16 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wd.mapper.OrderMapper">
+<mapper namespace="com.wd.mapper.OrderMapper" >
 
-    <select id="get" parameterType="Integer" resultType="Order">
+    <select id="get" parameterType="Integer" resultMap="Order">
         select id,order_price as price from t_order where id=#{id}
     </select>
-
     <insert id="save" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
         insert into t_order (order_price) values (#{price})
     </insert>
     <update id="update" parameterType="Order" >
         update t_order set order_price = #{price} where id = #{id}
     </update>
+
 </mapper>
