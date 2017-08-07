@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传例子</title>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script language="JavaScript">
+
+        function onUpload() {
+            var uploadfile = $("#uploadfile");
+            if(uploadfile.val()==null||uploadfile.val().length==0){
+                alert("请选择上传文件");
+                return;
+            }
+            var progressLabel = $("#progress");
+            progressLabel.innerText=0;
+            var formdata = new FormData();
+            formdata.append("file",$("#uploadfile")[0].files[0]);
+            var url="/file/ossupload";
+            $.ajax({
+                url:url,
+                type:"POST",
+                data:formdata,
+                dataType:"json",
+                processData:false,
+                contentType:false,
+                success:function(result){
+                    if(result.flag==true)
+                        alert(result.msg);
+                },
+                error:function(result){
+                }
+            });
+
+        }
+
+
+    </script>
+</head>
+<body>
+
+<h1>文件上传：使用AliyunOSSClient</h1>
+<div>
+    <div>
+        点击上传文件：<input type="file" id="uploadfile" name="uploadfile"  />
+        <span style="margin-left: 100px" id="progress">NO</span>
+    </div>
+    <div>
+        <input type="button" value="开始上传" onclick="onUpload()">
+    </div>
+
+</div>
+</body>
+</html>

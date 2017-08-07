@@ -29,7 +29,7 @@
     </script>
 </head>
 <body>
-<h1>RankScore of TOP10 rendered by HTML</h1>
+<h1>RankScore of TOP10 rendered by FTL</h1>
 <hr>
 
 <table border="1">

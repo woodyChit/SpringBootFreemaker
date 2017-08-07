@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wd.init.MySetting;
+import com.wd.mymapper.MapperProxyFactory;
 import com.wd.redis.MyRedisMessageListener;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
@@ -33,9 +35,13 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.lang.reflect.InvocationHandler;
 
 
 /**
@@ -43,9 +49,10 @@ import java.io.IOException;
  */
 @SpringBootApplication
 @Configuration
-@EnableRedisHttpSession(redisNamespace = "wdmain_httpsession")
+@EnableRedisHttpSession(redisNamespace = "wdmain_httpsession")       //httpsession -> redis
 @ComponentScan(basePackages = "com.wd")
-@EnableRedisRepositories
+@EnableRedisRepositories                                              //redis Repository注解
+@ServletComponentScan(basePackages = "com.wd")                      //注册@WebServlet @WebFilter等
 public class Application {
 
     public static void main(String[] args) {
@@ -79,6 +86,11 @@ public class Application {
         DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
         cookieSerializer.setCookieName(Constants.COOKIE_SESSION_ID);
         return cookieSerializer;
+    }
+
+    @Bean
+    public MapperProxyFactory mapperProxyFactory(SqlSessionFactory sqlSessionFactory){
+        return new MapperProxyFactory(sqlSessionFactory);
     }
 
 }

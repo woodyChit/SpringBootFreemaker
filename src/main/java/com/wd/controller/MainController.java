@@ -26,7 +26,7 @@ public class MainController {
     @RequestMapping(path = { "/index.html", "/" , "" })
     public ModelAndView index(ModelAndView modelAndView){
         modelAndView.addObject("name",holder.toString()  );
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("index");          //如果指定了view 的名字，则按照viewResolver 的order 顺序解析。
         return modelAndView;
     }
 
@@ -38,8 +38,8 @@ public class MainController {
      * @param myrank
      * @return
      */
-    @GetMapping("/score.html")
-    public ModelAndView score(ModelAndView modelAndView,String name, Double score,Long myrank){
+    @GetMapping("/score.html")                      //如果未指定view的名字，则按照路径名字进行查找
+    public ModelAndView score3(ModelAndView modelAndView,String name, Double score,Long myrank){
         Map<String,Double> rank = redisService.getRank(0,9);
         modelAndView.addObject("rank",rank);
         modelAndView.addObject("total",redisService.getLastRank());
@@ -54,5 +54,21 @@ public class MainController {
         return modelAndView;
     }
 
+    @GetMapping("/score2.html")             //展示了 第二位的viewResolver
+    public ModelAndView score2(ModelAndView modelAndView,String name, Double score,Long myrank){
+        Map<String,Double> rank = redisService.getRank(0,9);
+        modelAndView.addObject("rank",rank);
+        modelAndView.addObject("total",redisService.getLastRank());
+        if(StringUtils.isEmpty(name)){
+            modelAndView.addObject("isNew",true);
+        }else{
+            modelAndView.addObject("isNew",false);
+            modelAndView.addObject("name",name);
+            modelAndView.addObject("score",score);
+            modelAndView.addObject("myrank",myrank);
+        }
+        modelAndView.setViewName("scoreFtl");       //按顺序找不到  scoreFtl.html  ，继续找  scoreFtl.ftl  找到了。则用 第二个渲染
+        return modelAndView;
+    }
 
 }
