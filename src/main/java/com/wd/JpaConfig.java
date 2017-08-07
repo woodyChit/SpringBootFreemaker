@@ -23,7 +23,7 @@ import java.util.Map;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "jpaEntityManagerFactoryBean",
         transactionManagerRef = "jpaTransactionManager",
-        basePackages = {"com.wd.dao"}
+        basePackages = {"com.wd.dao","com.wd"}
 )
 public class JpaConfig {
     @Autowired

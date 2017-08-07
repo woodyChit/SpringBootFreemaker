@@ -1,6 +1,7 @@
 package com.wd;
 
 import com.wd.security.CostomUserService;
+import com.wd.security.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,14 +30,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/score").permitAll()
                 .anyRequest().authenticated()
+                .antMatchers("/file").hasAuthority("ADMIN")
+                .antMatchers("/jpa").hasAuthority("USER")
                 .and()
                 .formLogin()
                 .loginPage("/login.html")
-                .failureUrl("/loginerror.html")
                 .permitAll()
+                .successHandler(loginSuccessHandler())
                 .and()
                 .logout().permitAll();
         http.csrf().disable();
+    }
+    @Bean
+    public LoginSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessHandler();
     }
 }
