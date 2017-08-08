@@ -76,6 +76,7 @@ public class MainController {
     public String login(){
         return "login";
     }
+
     @PostMapping("/login.html")
     public String loginPost(String username,String password){
         System.out.println("username "+username +"pass "+password);
